@@ -1,25 +1,28 @@
 import pandas as pd
 import random
 import os
+
+import time
 from datetime import datetime
 
 
 # File path for the CSV file
 csv_file = 'database.csv'
-
 # Function to log data into the CSV file
-def log_data(ecval, temp, humidity, phval, light):
+def log_data(temp, ecval, light, phval, humidity):
     # Get the current timestamp
     timestamp = datetime.now().strftime('%H:%M:%S')
-    
+    if temp == -100:
+        temp = 25.0
     # Create a dictionary for the new entry
     data = {
         'timestamp': [timestamp],
-        'EC Level': [ecval],
         'Temperature': [temp],
-        'Humidity': [humidity],
+        'EC Level': [ecval],
+        'Light Level': [light],
         'pH Level': [phval],
-        'Light Level': [light]
+        'Humidity': [humidity]        
+
     }
     
     # Create a DataFrame from the dictionary
@@ -43,5 +46,4 @@ def read_data():
     else:
         # Return an empty DataFrame if the file does not exist or is empty
         return pd.DataFrame(columns=['timestamp', 'EC Level', 'Temperature', 'Humidity', 'pH Level', 'Light Level'])
-
 
