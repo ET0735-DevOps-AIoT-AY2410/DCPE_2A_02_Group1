@@ -1,6 +1,7 @@
 import pandas as pd
 import random
 import os
+
 import time
 from datetime import datetime
 
@@ -21,6 +22,7 @@ def log_data(temp, ecval, light, phval, humidity):
         'Light Level': [light],
         'pH Level': [phval],
         'Humidity': [humidity]        
+
     }
     
     # Create a DataFrame from the dictionary
