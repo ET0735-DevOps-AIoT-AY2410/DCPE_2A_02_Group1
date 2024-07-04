@@ -47,3 +47,15 @@ def read_data():
         # Return an empty DataFrame if the file does not exist or is empty
         return pd.DataFrame(columns=['timestamp', 'EC Level', 'Temperature', 'Humidity', 'pH Level', 'Light Level'])
 
+def pH_sorter (phval):
+    if (float(phval) <= 5 ):
+        pHclass="Very Acidic"
+    elif (float(phval) > 5) and (float(phval) <= 6.5):
+        pHclass= "Mildly Acidic"
+    elif (float(phval) > 6.5) and (float(phval) <= 7.5):
+        pHclass= "Neutral"
+    elif (float(phval) > 7.5) and (float(phval) <= 9):
+        pHclass= "Mildly Alkaline"
+    elif (float(phval) > 9):
+        pHclass= "Very Alkaline"
+    return (pHclass)
