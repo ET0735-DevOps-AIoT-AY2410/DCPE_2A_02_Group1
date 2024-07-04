@@ -13,12 +13,16 @@ body {
     
 }
 
-#topbar {
+#pagetop {
     position: fixed;
     width: 100%;
     height: 5vw;
     background-color: white;
     z-index: 4;
+}
+
+#logo {
+    float: left;
 }
 
 #header {
