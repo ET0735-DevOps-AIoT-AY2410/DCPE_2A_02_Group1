@@ -1,4 +1,26 @@
+@font-face {
+    font-family: 'Restora Neue';
+    src: url(Restora-Neue-Font/Fontspring-DEMO-restoraneue-semibold.otf) format(opentype);
+}
+
+:root {
+        /* CSS HEX */
+    --night: #000f08ff;
+    --gunmetal: #1c3738ff;
+    --davys-gray: #4d4847ff;
+    --mint-cream: #f4fff8ff;
+    --cadet-gray: #8baaadff;
+
+    /* CSS HSL */
+    --night: hsla(152, 100%, 3%, 1);
+    --gunmetal: hsla(182, 33%, 16%, 1);
+    --davys-gray: hsla(10, 4%, 29%, 1);
+    --mint-cream: hsla(142, 100%, 98%, 1);
+    --cadet-gray: hsla(185, 17%, 61%, 1);
+}
+
 html {
+    box-sizing: border-box;
     max-width: 100%;
     overflow-x: hidden;
     padding: 0;
@@ -7,51 +29,166 @@ html {
 
 body {
     max-width: 100%;
+    min-height: 100vh;
     overflow-x: hidden;
     padding: 0;
     margin: 0;
-    
+    background-image: linear-gradient(to bottom,rgba(0,15,8,1),rgba(0,15,8,0.0)) , url(homepage_background.jpg);
+    background-position: center;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    font-family: 'Restora Neue';
+
+    display: flex;
 }
 
 #pagetop {
     position: fixed;
     width: 100%;
-    height: 5vw;
-    background-color: white;
+    /* height: 5vh; */
+    background-color: var(--night);
+    box-shadow: 0px 5px 15px 4px var(--night);
     z-index: 4;
 }
 
 #logo {
+    position: absolute;
+    left: -100px;
+    /* position: relative;
     float: left;
+    left: 0px;
+    padding: 0;
+    margin: 0;
+    margin-left: 20px; */
 }
 
 #header {
-    position: absolute;
     width: 100%;
-    bottom: 0.001vw;
     text-align: center;
-    font-family: serif;
-    font-style: italic;
+    color: white;
+    font-weight: 500;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+
+    height: 0px;
+    width: 100%;
+}
+
+.grid-item {
+    text-align: center;
+    padding: 20px;
+    
+
+    
 }
 
 #greeting {
-    position: relative;
-    top: 10vw;
-    left: 15vw;
-    width: 100vw;
+    color: white;
+    font-weight: 200;
 }
 
-#projectBackground {
-    position: relative;
+#projectBGtext {
     text-align: center;
     width: 40vw;
-    left: 50vw;
-    top: 15vw;
-    background-color:brown;
+    color: white;
+    text-shadow: 0px 0px 15px black;
+}
+
+#projectdesc {
+    text-align: center;
+    width: 40vw;
+    color: var(--mint-cream);
 }
 
 img {
+    border-radius: 2vw;
+    box-shadow: 0px 0px 15px black;
+}
+
+.hover-expand {
+    transition: transform 0.2s;
+}
+
+.hover-expand:hover {
+    transform: scale(1.05);
+}
+
+.content-wrapper {
+    margin-top: 100px;
+
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    width: 100vw;
+    background-image: linear-gradient(to bottom,rgba(0,15,8,1),rgba(0,15,8,0.0) 20%) , url(homepage_background.jpg);
+    background-position: center;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+.navbar {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 50px;
+    background-color: rgba(77,72,71,0.3);
+    box-shadow: 5px 0px 20px black;
+    margin-right: 20px;
+    border-radius: 0px 10px 10px 0px;
+}
+
+.navbar > div {
+    background-color: var(--davys-gray);
+    border-radius: 10px;
+    margin: 10px;
+
+    width: 40px;
+    height: 40px;
+
+
+
+    box-shadow: 3px 3px 3px black;
+}
+
+.transparent-button {
+    text-decoration: none;
+    height: 50px;
+    color: white;
+    background-color: rgba(77, 72, 71, 0.3);
+    padding: 10px;
+    margin: 10px;
+
+    border: 5px var(--cadet-gray) solid; 
+    border-radius: 30px;
+
+    text-align: center;
+    width: 100%;
+    text-shadow: none;
+    transition: text-shadow 0.2s;
+    /* animation: glow 1s linear 0s infinite alternate; */
+    
+}
+
+.transparent-button:hover {
+    color: white;
+    text-shadow: 0 0 10px var(--cadet-gray), 0 0 20px var(--cadet-gray), 0 0 30px var(--night), 0 0 40px var(--night), 0 0 50px var(--night), 0 0 60px var(--night), 0 0 70px var(--night);
+    /* animation: glow 1s linear 0s infinite alternate; */
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px var(--mint-cream), 0 0 40px var(--mint-cream), 0 0 50px var(--mint-cream), 0 0 60px var(--mint-cream), 0 0 70px var(--mint-cream);
+    }
+    to {
+        text-shadow: 0 0 20px #fff, 0 0 30px var(--mint-cream), 0 0 40px var(--mint-cream), 0 0 50px var(--mint-cream), 0 0 60px var(--mint-cream), 0 0 70px var(--mint-cream), 0 0 80px var(--mint-cream);
+      }
+}
+
+.grid-content {
     position: relative;
-    bottom: 10vw;
-    left: 7vw;
+    top: 50%;
+    transform: translateY(-50%);
 }
