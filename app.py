@@ -6,11 +6,6 @@ from datetime import datetime
 
 csv_file = 'database.csv'
 
-with open(csv_file, mode='r', newline=' ') as file:
-    csv_reader =  csv.DictReader(file)
-    csv_file = [row for row in csv_reader]
-
-# Function to log data into the CSV file
 def log_data(ecval, temp, humidity, phlvl, light):
     timestamp = datetime.now().strftime('%H:%M:%S')
     data = {
