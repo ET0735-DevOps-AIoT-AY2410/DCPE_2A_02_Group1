@@ -6,6 +6,10 @@ from datetime import datetime
 
 csv_file = 'database.csv'
 
+with open(csv_file, mode='r', newline=' ') as file:
+    csv_reader =  csv.DictReader(file)
+    csv_file = [row for row in csv_reader]
+
 # Function to log data into the CSV file
 def log_data(ecval, temp, humidity, phlvl, light):
     timestamp = datetime.now().strftime('%H:%M:%S')
@@ -75,15 +79,6 @@ def data():
             "ec": df['EC Level'].tolist()
         }
         return jsonify(data_storage)
-
-@app.route('/analysis/<metric>')
-def analysis(metric):
-    df = read_data()
-    analysis_result = analyze_data(df)
-    if metric in analysis_result:
-        return jsonify(analysis_result[metric])
-    else:
-        return jsonify({"error": "Invalid metric"}), 400
 
 if __name__ == '__main__':
     app.run(debug=True)
