@@ -29,7 +29,7 @@ def adjust_ec(ec_level):
         servo.set_servo_position(0)
 
 def adjust_light(light_level):
-    if light_level <= 500:
+    if light_level <= 600:
         led.set_output(1,1)
     else:
         led.set_output(1,0)
@@ -54,9 +54,3 @@ def main():
     led.init()
     adjustment_thread = Thread(target=adjustment)
     adjustment_thread.start()
-        
-
-
-
-if __name__ == '__main__':
-    main()
