@@ -7,7 +7,7 @@ from datetime import datetime
 
 
 # File path for the CSV file
-csv_file = 'database.csv'
+csv_file = 'src/database.csv'
 # Function to log data into the CSV file
 def log_data(temp, ecval, light, phval, humidity):
     # Get the current timestamp
