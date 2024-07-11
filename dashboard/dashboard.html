@@ -76,7 +76,6 @@
 
         function updateChart(dataTable, chart, time, values, title) {
             console.log(`Updating chart: ${title}`);
-            dataTable.removeRows(0, dataTable.getNumberOfRows());
             for (let i = 0; i < time.length; i++) {
                 dataTable.addRow([time[i], values[i]]);
             }
