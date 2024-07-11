@@ -120,6 +120,11 @@ if __name__ == '__main__':
     adc.init()
     servo.init()
     led.init()
+<<<<<<< HEAD
     adjustment_thread = Thread(target=mon.adjustment)
     adjustment_thread.start()
+=======
+    '''adjustment_thread = Thread(target=mon.adjustment)
+    adjustment_thread.start()'''
+>>>>>>> 0f37fae353b9350607b6d131636b0f1f2dec96c3
     app.run(debug=True)
