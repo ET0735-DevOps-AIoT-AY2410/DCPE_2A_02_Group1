@@ -1,7 +1,8 @@
 import pandas as pd
 import random
 import os
-
+import numpy as np
+from scipy import stats
 import time
 from datetime import datetime
 
@@ -21,6 +22,7 @@ def log_data(temp, ecval, light, phval, humidity):
         'EC Level': [ecval],
         'Light Level': [light],
         'pH Level': [phval],
+        'pH category': [pH_sorter(phval)],
         'Humidity': [humidity]        
 
     }
@@ -47,15 +49,23 @@ def read_data():
         # Return an empty DataFrame if the file does not exist or is empty
         return pd.DataFrame(columns=['timestamp', 'EC Level', 'Temperature', 'Humidity', 'pH Level', 'Light Level'])
 
+def analyze_data(df):
+    analysis = {}
+    columns = ['EC Level', 'Temperature', 'Humidity', 'pH Level', 'Light Level']
+    
+    for col in columns:
+        data = df[col].values
+        analysis[col] = {
+            'mean': np.mean(data),
+            'median': np.median(data),
+            'std_dev': np.std(data)
+        }
+    
+    return analysis
+
 def pH_sorter (phval):
-    if (float(phval) <= 5 ):
-        pHclass="Very Acidic"
-    elif (float(phval) > 5) and (float(phval) <= 6.5):
-        pHclass= "Mildly Acidic"
-    elif (float(phval) > 6.5) and (float(phval) <= 7.5):
-        pHclass= "Neutral"
-    elif (float(phval) > 7.5) and (float(phval) <= 9):
-        pHclass= "Mildly Alkaline"
-    elif (float(phval) > 9):
-        pHclass= "Very Alkaline"
-    return (pHclass)
+    if (phval=="True"):
+        phclass= "Irregular"
+    elif (phval=="False"): 
+        phclass="Neutral"
+    return (phclass)

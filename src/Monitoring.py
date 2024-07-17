@@ -7,6 +7,7 @@ from hal import hal_ir_sensor as ir_sensor
 from hal import hal_dc_motor as dc_motor
 from hal import hal_servo as servo
 from hal import hal_led as led
+from hal import hal_buzzer as buzzer
 
 values = []
 
@@ -33,6 +34,10 @@ def adjust_light(light_level):
         led.set_output(1,1)
     else:
         led.set_output(1,0)
+
+def pH_warn (pH_level)
+    if pH_level == False:
+        buzzer.beep (0.5,0.25,4)
 
 def adjustment():
     while 1:
