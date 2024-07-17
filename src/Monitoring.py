@@ -59,9 +59,3 @@ def main():
     led.init()
     adjustment_thread = Thread(target=adjustment)
     adjustment_thread.start()
-        
-
-
-
-if __name__ == '__main__':
-    main()
