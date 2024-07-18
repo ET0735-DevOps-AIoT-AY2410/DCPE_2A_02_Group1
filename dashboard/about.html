@@ -74,23 +74,23 @@
         <nav id = "sidenav">
             <ul>
                 <li id = "nav-logo">
-                        <img src = "logo.png">
+                        <img src = "{{ url_for('static', filename='logo.png') }}">
                         <span class = "nav-item">GreenSol</span>
                 </li>
                 <li>
-                    <a href = "index.html">
+                    <a href = "/">
                         <i class = "fa fa-home" style="font-size:26px"></i>
                         <span class = "nav-item">Home</span>
                     </a>
                 </li>
                 <li>
-                    <a href = "about.html">
+                    <a href = "/about">
                         <i class="fa fa-info-circle" style="font-size:25px"></i>
                         <span class = "nav-item">About Us</span>
                     </a>
                 </li>
                 <li>
-                    <a href = "dashboard.html" id = "nav-dashboard">
+                    <a href = "/dashboard" id = "nav-dashboard">
                             <i class="fa fa-bar-chart" style="font-size:21px"></i>
                             <span class = "nav-item">Dashboard</span>
                     </a>
@@ -133,7 +133,7 @@
                         </div>
                     </div>
                     <div id = "rpi-image">
-                        <img src = "raspberrypi.jpeg">
+                        <img src = "{{ url_for('static', filename='raspberrypi.jpeg') }}">
                         <div class = "overlay">
                             <div id = "rpi-image-name">
                                 <h2>Raspberry Pi</h2>
@@ -146,7 +146,7 @@
         </div>
 
         <div class="griditem" id="sideimg">
-            <img src="Screenshot 2024-07-12 211834.png">
+            <img src="{{ url_for('static', filename='Screenshot 2024-07-12 211834.png')}}">
         </div>
 
     </div>
@@ -154,7 +154,7 @@
     <div id="footer">
         <div id="credits">
             <div id="footer-head">
-                <a href="index.html" class="footer-logo">
+                <a href="/" class="footer-logo">
                     <div style="transform: scale(0.35);">
                         <svg width="411.8833465576172" height="102.02450519190508"
                             viewBox="0 0 369.66666666666663 91.56733106064468" class="looka-1j8o68f">
