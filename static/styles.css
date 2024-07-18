@@ -1,11 +1,11 @@
 @font-face {
     font-family: 'Source Sans Pro Bold';
-    src: url(../dashboard/fonts/SourceSansPro-Bold.otf) format(opentype);
+    src: url(/static/fonts/SourceSansPro-Bold.otf) format('opentype');
 }
 
 @font-face {
     font-family: 'Source Sans Pro Semibold';
-    src: url(../dashboard/fonts/SourceSansPro-Semibold.otf) format(opentype);
+    src: url(/static/fonts/SourceSansPro-Semibold.otf) format('opentype');
 }
 
 :root {
@@ -317,7 +317,7 @@ body {
 #sidenav {
     grid-area: 1 / 2 / span 2 / span 1;
     z-index: 6;
-    position: absolute;
+    position: fixed;
     top: 0;
     bottom: 0;
     height: max-content;
