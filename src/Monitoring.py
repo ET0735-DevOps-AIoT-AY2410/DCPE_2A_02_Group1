@@ -11,16 +11,10 @@ from src.hal import hal_led as led
 values = []
 
 def adjust_temp(temperature):
-    if  temperature > 23:
-        dc_motor.set_motor_speed(70)
-        print("fan on!")
-        print(temperature)
-    elif temperature == -100:
+    if  temperature > 30:
         dc_motor.set_motor_speed(70)
     else:
         dc_motor.set_motor_speed(0)
-        print("fan off!")
-        print(temperature)
 
 def adjust_ec(ec_level):
     if ec_level >= 500:

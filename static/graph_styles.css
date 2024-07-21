@@ -78,66 +78,47 @@ body {
 }
 
 #sidenav {
-    width: 75px;
+    grid-area: 1 / 2 / span 2 / span 1;
+    z-index: 6;
     position: fixed;
     top: 0;
     bottom: 0;
-    left: 0;
-    height: 100%;
-    background-color: var(--moonstone);
-    padding-top: 20px;
+    height: max-content;
+    right: 0;
+    background: var(--moonstone);
+    width: 75px;
     overflow: hidden;
     transition: width 0.2s linear;
-    border-radius: 0 10px 10px 0;
-    box-shadow: -20px 20px 35px rgba(0, 0, 0, 0.1);
+    border-radius: 10px 0 0 10px;
+    box-shadow: -20px 20px 35px rgba(0,0,0,0.1);
 }
 
-#sidenav ul {
-    list-style-type: none;
+#sidenav a {
+    position: relative;
+    margin: 10px;
+    margin-left: 3px;
+    /*margin-top: 25px;*/
     padding: 0;
-    margin: 0;
-}
-
-#sidenav ul li {
-    padding: 8px;
-    text-align: center;
-}
-
-#sidenav ul li a {
+    outline: none;
+    border: none;
     text-decoration: none;
-    color: black;
+    box-sizing: border-box;
     font-family: 'Source Sans Pro Bold';
+    color: black;
     font-size: 14px;
     display: table;
-    width: 100%;
-    transition: all 0.5s ease;
-    margin: 10px 0;
-    padding: 10px 0;
+    width: 300px;
 }
 
-#sidenav ul li a:hover {
+
+#sidenav a:hover {
     background: var(--lavender-web);
-    border-radius: 0 10px 10px 0;
-}
-
-#sidenav ul li a .fa {
-    width: 45px;
-    height: 45px;
-    font-size: 20px;
-    text-align: center;
-    margin: 10px auto;
-    display: block;
-}
-
-#sidenav ul li a .nav-item {
-    display: block;
-    text-align: left;
-    padding-left: 10px;
-    font-size: 18px;
+    border-radius: 10px 0 0 10px;
 }
 
 #sidenav:hover {
     width: 200px;
+    transition: all 0.5s ease;
 }
 
 #nav-logo {
@@ -146,19 +127,38 @@ body {
     padding: 20px 0;
 }
 
+
+#nav-logo {
+    position: relative;
+    text-align: center;
+    display: flex;
+    transition: all 0.5s ease;
+}
+
 #nav-logo img {
     width: 45px;
     height: 45px;
     border-radius: 50%;
-    margin: 0 10px;
+    margin: 23px 0 0 16px;
 }
 
-#nav-logo span {
+#nav-logo span{
     font-family: 'Source Sans Pro Bold';
     font-weight: bold;
+    padding: 15px;
+    font-size: 18px;
     text-transform: uppercase;
-    margin-left: 10px;
+    margin-top: 8px;
 }
+
+#nav-dashboard .fa {
+    top: 15px;
+}
+
+#nav-dashboard span {
+    top: 14px;
+}
+
 
 main {
     display: flex;

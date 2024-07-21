@@ -17,13 +17,13 @@
             vAxis: {minValue: 0},
             legend: 'none',
             backgroundColor: 'transparent',
-            chartArea: {width: '80%', height: '80%'},
+            chartArea: {width: '85%', height: '80%'},
             tooltip: {isHtml: true},
             pointSize: 5,
             colors: ['#b3fcb6']
         };
         let updateInterval;
-        const maxPoints = 10; // Maximum number of points to display
+        const maxPoints = 8; // Maximum number of points to display
 
         function initializeCharts() {
             console.log("Initializing charts...");
@@ -58,7 +58,7 @@
 
         function StartFetchingData() {
             console.log("Starting data fetch...");
-            updateInterval = setInterval(FetchData, 1000);
+            updateInterval = setInterval(FetchData, 4900);
         }
 
         function FetchData() {
