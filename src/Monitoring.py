@@ -1,12 +1,12 @@
 import time
-import database as db
+import src.database as db
 from threading import Thread
-from hal import hal_temp_humidity_sensor as temp_humid_sensor
-from hal import hal_adc as adc
-from hal import hal_ir_sensor as ir_sensor
-from hal import hal_dc_motor as dc_motor
-from hal import hal_servo as servo
-from hal import hal_led as led
+from src.hal import hal_temp_humidity_sensor as temp_humid_sensor
+from src.hal import hal_adc as adc
+from src.hal import hal_ir_sensor as ir_sensor
+from src.hal import hal_dc_motor as dc_motor
+from src.hal import hal_servo as servo
+from src.hal import hal_led as led
 
 values = []
 
