@@ -1,0 +1,218 @@
+@font-face {
+    font-family: 'Source Sans Pro Bold';
+    src: url(/static/fonts/SourceSansPro-Bold.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'Source Sans Pro Semibold';
+    src: url(/static/fonts/SourceSansPro-Semibold.otf) format('opentype');
+}
+
+:root {
+    /* CSS HEX */
+    --lavender-web: #d8ddefff;
+    --cool-gray: #a0a4b8ff;
+    --cadet-gray: #899cacff;
+    --air-force-blue: #7293a0ff;
+    --moonstone: #679c9fff;
+    --verdigris: #5ca59eff;
+    --keppel: #45b69cff;
+    --mint: #21d19fff;
+
+    /* CSS HSL */
+    --lavender-web: hsla(227, 42%, 89%, 1);
+    --cool-gray: hsla(230, 14%, 67%, 1);
+    --cadet-gray: hsla(207, 17%, 61%, 1);
+    --air-force-blue: hsla(197, 19%, 54%, 1);
+    --moonstone: hsla(183, 23%, 51%, 1);
+    --verdigris: hsla(174, 29%, 50%, 1);
+    --keppel: hsla(166, 45%, 49%, 1);
+    --mint: hsla(163, 73%, 47%, 1);
+}
+
+html {
+    box-sizing: border-box;
+    max-width: 100%;
+    overflow-x: hidden;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    max-width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+    padding: 0;
+    margin: 0;
+    background-color: #f0f0f0;
+    font-family: 'Restora Neue';
+    display: flex;
+    flex-direction: column;
+}
+
+.gridcontainerab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #fff;
+    height: 100%;
+    width: 100%;
+}
+
+#pagetop {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: var(--cadet-gray);
+}
+
+#logo {
+    text-decoration: none;
+    color: #252a34;
+    display: flex;
+    align-items: center;
+}
+
+#sidenav {
+    width: 75px;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    background-color: var(--moonstone);
+    padding-top: 20px;
+    overflow: hidden;
+    transition: width 0.2s linear;
+    border-radius: 0 10px 10px 0;
+    box-shadow: -20px 20px 35px rgba(0, 0, 0, 0.1);
+}
+
+#sidenav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#sidenav ul li {
+    padding: 8px;
+    text-align: center;
+}
+
+#sidenav ul li a {
+    text-decoration: none;
+    color: black;
+    font-family: 'Source Sans Pro Bold';
+    font-size: 14px;
+    display: table;
+    width: 100%;
+    transition: all 0.5s ease;
+    margin: 10px 0;
+    padding: 10px 0;
+}
+
+#sidenav ul li a:hover {
+    background: var(--lavender-web);
+    border-radius: 0 10px 10px 0;
+}
+
+#sidenav ul li a .fa {
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+    text-align: center;
+    margin: 10px auto;
+    display: block;
+}
+
+#sidenav ul li a .nav-item {
+    display: block;
+    text-align: left;
+    padding-left: 10px;
+    font-size: 18px;
+}
+
+#sidenav:hover {
+    width: 200px;
+}
+
+#nav-logo {
+    display: flex;
+    align-items: center;
+    padding: 20px 0;
+}
+
+#nav-logo img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    margin: 0 10px;
+}
+
+#nav-logo span {
+    font-family: 'Source Sans Pro Bold';
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-left: 10px;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: calc(100% - 75px);
+    margin-left: 75px;
+}
+
+.graph-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-areas: 
+        "phChart temperatureChart humidityChart"
+        "lightChart ecChart ecChart";
+    gap: 20px;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.graph {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+}
+
+#phChart { grid-area: phChart; }
+#temperatureChart { grid-area: temperatureChart; }
+#humidityChart { grid-area: humidityChart; }
+#lightChart { 
+    grid-area: lightChart; 
+    padding-right: 40px; /* Adjust padding to make it look even */
+}
+#ecChart { 
+    grid-area: ecChart; 
+    padding-left: 40px; /* Adjust padding to make it look even */
+}
+
+@media (max-width: 768px) {
+    .gridcontainerab {
+        padding: 10px;
+    }
+
+    .graph {
+        height: 200px;
+    }
+}
