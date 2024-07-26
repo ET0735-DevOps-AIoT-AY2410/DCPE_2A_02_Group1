@@ -17,13 +17,21 @@
             vAxis: {minValue: 0},
             legend: 'none',
             backgroundColor: 'transparent',
-            chartArea: {width: '80%', height: '80%'},
+            chartArea: {width: '85%', height: '80%'},
             tooltip: {isHtml: true},
             pointSize: 5,
             colors: ['#b3fcb6']
         };
         let updateInterval;
-        const maxPoints = 10; // Maximum number of points to display
+        const maxPoints = 8; // Maximum number of points to display
+
+        const thresholds = {
+            ph: 0,
+            temperature: 20,
+            humidity: 40,
+            light: 500,
+            ec: 399
+        };
 
         function initializeCharts() {
             console.log("Initializing charts...");
@@ -58,7 +66,7 @@
 
         function StartFetchingData() {
             console.log("Starting data fetch...");
-            updateInterval = setInterval(FetchData, 1000);
+            updateInterval = setInterval(FetchData, 4900);
         }
 
         function FetchData() {
@@ -66,6 +74,7 @@
                 .then(response => response.json())
                 .then(data => {
                     console.log("Data fetched: ", data);
+                    updateDisplay(data);
                     updateChart(phData, phChart, data.time, data.ph, 'pH Level');
                     updateChart(temperatureData, temperatureChart, data.time, data.temperature, 'Ambient Temperature');
                     updateChart(humidityData, humidityChart, data.time, data.humidity, 'Relative Humidity');
@@ -73,6 +82,24 @@
                     updateChart(ecData, ecChart, data.time, data.ec, 'EC Level');
                 })
                 .catch(error => console.error('Error fetching data:', error));
+        }
+
+        function updateDisplay(data) {
+            updateValue('current-ph', data.ph[data.ph.length - 1], thresholds.ph);
+            updateValue('current-temperature', data.temperature[data.temperature.length - 1], thresholds.temperature);
+            updateValue('current-humidity', data.humidity[data.humidity.length - 1], thresholds.humidity);
+            updateValue('current-light', data.light[data.light.length - 1], thresholds.light);
+            updateValue('current-ec', data.ec[data.ec.length - 1], thresholds.ec);
+        }
+
+        function updateValue(elementId, value, threshold) {
+            const element = document.getElementById(elementId);
+            element.innerText = value;
+            if (value > threshold) {
+                element.style.color = 'red';
+            } else {
+                element.style.color = 'black';
+            }
         }
 
         function updateChart(dataTable, chart, time, values, title) {
@@ -89,6 +116,18 @@
             options.title = title;
             chart.draw(dataTable, options);
         }
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('stopadj').addEventListener('click', function() {
+                fetch('/stopadj', {
+                    method: 'POST'
+                })
+                .then(response => {
+                    if (response.status === 204) {
+                        alert('Stopped');
+                    }
+                });
+            });
+        });
     </script>
 </head>
 <body>
@@ -176,11 +215,32 @@
             
     <main>
         <div class="graph-container">
-            <div class="graph" id="phChart"></div>
-            <div class="graph" id="temperatureChart"></div>
-            <div class="graph" id="humidityChart"></div>
-            <div class="graph" id="lightChart"></div>
-            <div class="graph" id="ecChart"></div>
+            <div class="current-levels">
+                <div>Current pH Level: <span id="current-ph">N/A</span></div>
+                <div class="graph" id="phChart"></div>
+            </div>
+
+            <div class="current-levels">
+                <div>Current Temperature (°C): <span id="current-temperature">N/A</span></div>
+                <div class="graph" id="temperatureChart"></div>
+            </div>
+
+            <div class="current-levels">
+                <div>Current Humidity (%): <span id="current-humidity">N/A</span></div>
+                <div class="graph" id="humidityChart"></div>
+            </div>
+
+            <div class="current-levels">
+                <div>Current Light (lux): <span id="current-light">N/A</span></div>
+                <div class="graph" id="lightChart"></div>
+            </div>
+
+            <div class="current-levels">
+                <div>Current EC (mS/cm): <span id="current-ec">N/A</span></div>
+                <div class="graph" id="ecChart"></div>
+            </div>
+            
+            <button id="stopadj">STOP!</button>
         </div>
     </main>
         

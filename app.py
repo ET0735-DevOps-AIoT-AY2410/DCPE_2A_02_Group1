@@ -115,6 +115,11 @@ def data():
     update_data(datas)
     return jsonify(datas)
 
+@app.route('/stopadj', methods=['POST'])
+def stop_adj():
+    mon.stopadj()
+    return '', 204  
+
 @app.route('/about')
 def about():
     return render_template('about.html')          
