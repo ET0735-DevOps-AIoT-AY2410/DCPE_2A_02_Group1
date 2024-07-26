@@ -8,7 +8,8 @@ from datetime import datetime
 
 
 # File path for the CSV file
-csv_file = 'src/database.csv'
+csv_file = 'database.csv'
+csv_file2 = 'analysis.csv'
 # Function to log data into the CSV file
 def log_data(temp, ecval, light, phval, humidity):
     # Get the current timestamp
@@ -22,7 +23,6 @@ def log_data(temp, ecval, light, phval, humidity):
         'EC Level': [ecval],
         'Light Level': [light],
         'pH Level': [phval],
-        'pH category': [pH_sorter(phval)],
         'Humidity': [humidity]        
 
     }
@@ -55,17 +55,27 @@ def analyze_data(df):
     
     for col in columns:
         data = df[col].values
-        analysis[col] = {
-            'mean': np.mean(data),
-            'median': np.median(data),
-            'std_dev': np.std(data)
-        }
+        if (col=='pH Level'):
+            analysis[col] = {
+                'mode':stats.mode(data)
+            }
+        else:
+            analysis[col] = {
+                'mean': np.mean(data),
+                'median': np.median(data),
+                'std_dev': np.std(data)
+            }
     
+    # Create a DataFrame from the dictionary
+    df = pd.DataFrame(analysis)
+    
+    # Check if the CSV file exists and is not empty
+    if os.path.exists(csv_file2) and os.path.getsize(csv_file2) > 0:
+        # Append the DataFrame to the CSV file
+        df.to_csv(csv_file2, mode='a', index=False, header=False)
+    else:
+        # Create the CSV file with the header
+        df.to_csv(csv_file2, mode='w', index=False, header=True)
     return analysis
 
-def pH_sorter (phval):
-    if (phval=="True"):
-        phclass= "Irregular"
-    elif (phval=="False"): 
-        phclass="Neutral"
-    return (phclass)
+    
