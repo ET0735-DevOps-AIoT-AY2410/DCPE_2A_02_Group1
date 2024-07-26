@@ -67,15 +67,15 @@ def analyze_data(df):
             }
     
     # Create a DataFrame from the dictionary
-    df = pd.DataFrame(analysis)
+    df2 = pd.DataFrame(analysis)
     
     # Check if the CSV file exists and is not empty
     if os.path.exists(csv_file2) and os.path.getsize(csv_file2) > 0:
         # Append the DataFrame to the CSV file
-        df.to_csv(csv_file2, mode='a', index=False, header=False)
+        df2.to_csv(csv_file2, mode='a', index=False, header=False)
     else:
         # Create the CSV file with the header
-        df.to_csv(csv_file2, mode='w', index=False, header=True)
+        df2.to_csv(csv_file2, mode='w', index=False, header=True)
     return analysis
 
     
