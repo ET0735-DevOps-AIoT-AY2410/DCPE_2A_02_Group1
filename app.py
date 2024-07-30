@@ -6,6 +6,7 @@ from datetime import datetime
 import time
 import src.database as db
 import src.Monitoring as mon
+import src.login as log
 from threading import Thread
 from src.hal import hal_temp_humidity_sensor as temp_humid_sensor
 from src.hal import hal_adc as adc
@@ -14,8 +15,9 @@ from src.hal import hal_dc_motor as dc_motor
 from src.hal import hal_servo as servo
 from src.hal import hal_led as led
 
-csv_file = 'database.csv'
 
+csv_file = 'cool.csv'
+run_count = 0
 
 # Function to log data into the CSV file
 def log_data(ecval, temp, humidity, phlvl, light):
@@ -77,6 +79,8 @@ def update_data(data_storage):
     data_storage["ec"].pop(0)
     print(data_storage)
 
+
+
 # Function to read the data from the CSV file into a DataFrame
 def read_data():
     if os.path.exists(csv_file) and os.path.getsize(csv_file) > 0:
@@ -124,7 +128,7 @@ def stop_adj():
 def about():
     return render_template('about.html')          
        
-if __name__ == '__main__':
+def init():
     temp_humid_sensor.init()
     ir_sensor.init()
     dc_motor.init()
@@ -133,4 +137,12 @@ if __name__ == '__main__':
     led.init()
     adjustment_thread = Thread(target=mon.adjustment)
     adjustment_thread.start()
-    app.run(debug=True)
+    print("garden running")
+    app.run(debug=False)
+
+
+        
+
+if __name__ == '__main__':
+    if log.main() == True:
+        init()
