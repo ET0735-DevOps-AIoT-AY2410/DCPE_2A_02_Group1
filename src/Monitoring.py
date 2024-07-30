@@ -49,6 +49,8 @@ def adjustment():
         pH_warn(values[3])
         time.sleep(1)
         db.log_data(values[0],values[1],values[2],values[3],values[4])
+        db.analyze_temperature_data (values[0])
+        db.analyze_ec_data (values[1])
 
 
 def main():

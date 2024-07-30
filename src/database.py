@@ -2,14 +2,14 @@ import pandas as pd
 import random
 import os
 import numpy as np
-from scipy import stats
 import time
 from datetime import datetime
 
 
 # File path for the CSV file
 csv_file = 'database.csv'
-csv_file2 = 'analysis.csv'
+tempanalysiscsv_file = 'temperature_analysis.csv'
+ecanalysiscsv_file= 'ec_analysis.csv'
 # Function to log data into the CSV file
 def log_data(temp, ecval, light, phval, humidity):
     # Get the current timestamp
@@ -49,33 +49,43 @@ def read_data():
         # Return an empty DataFrame if the file does not exist or is empty
         return pd.DataFrame(columns=['timestamp', 'EC Level', 'Temperature', 'Humidity', 'pH Level', 'Light Level'])
 
-def analyze_data(df):
-    analysis = {}
-    columns = ['EC Level', 'Temperature', 'Humidity', 'pH Level', 'Light Level']
+def analyze_temperature_data(temperature):
     
-    for col in columns:
-        data = df[col].values
-        if (col=='pH Level'):
-            analysis[col] = {
-                'mode':stats.mode(data)
-            }
-        else:
-            analysis[col] = {
-                'mean': np.mean(data),
-                'median': np.median(data),
-                'std_dev': np.std(data)
-            }
+    analysis = {
+        'mean': np.mean(temperature),
+        'median': np.median(temperature),
+        'std_dev': np.std(temperature)
+    }
     
     # Create a DataFrame from the dictionary
-    df2 = pd.DataFrame(analysis)
+    df = pd.DataFrame(analysis)
     
     # Check if the CSV file exists and is not empty
-    if os.path.exists(csv_file2) and os.path.getsize(csv_file2) > 0:
+    if os.path.exists(tempanalysiscsv_file) and os.path.getsize(tempanalysiscsv_file) > 0:
         # Append the DataFrame to the CSV file
-        df2.to_csv(csv_file2, mode='a', index=False, header=False)
+        df.to_csv(tempanalysiscsv_file, mode='a', index=False, header=False)
     else:
         # Create the CSV file with the header
-        df2.to_csv(csv_file2, mode='w', index=False, header=True)
+        df.to_csv(tempanalysiscsv_file, mode='w', index=False, header=True)
     return analysis
 
+def analyze_ec_data(ecval):
+    
+    analysis = {
+        'mean': np.mean(ecval),
+        'median': np.median(ecval),
+        'std_dev': np.std(ecval)
+    }
+    
+    # Create a DataFrame from the dictionary
+    df = pd.DataFrame(analysis)
+    
+    # Check if the CSV file exists and is not empty
+    if os.path.exists(ecanalysiscsv_file) and os.path.getsize(ecanalysiscsv_file) > 0:
+        # Append the DataFrame to the CSV file
+        df.to_csv(ecanalysiscsv_file, mode='a', index=False, header=False)
+    else:
+        # Create the CSV file with the header
+        df.to_csv(ecanalysiscsv_file, mode='w', index=False, header=True)
+    return analysis
     

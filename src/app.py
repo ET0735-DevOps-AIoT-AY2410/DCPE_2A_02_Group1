@@ -4,15 +4,15 @@ import numpy as np
 import os
 from datetime import datetime
 import time
-import src.database as db
-import src.Monitoring as mon
+import database as db
+import Monitoring as mon
 from threading import Thread
-from src.hal import hal_temp_humidity_sensor as temp_humid_sensor
-from src.hal import hal_adc as adc
-from src.hal import hal_ir_sensor as ir_sensor
-from src.hal import hal_dc_motor as dc_motor
-from src.hal import hal_servo as servo
-from src.hal import hal_led as led
+from hal import hal_temp_humidity_sensor as temp_humid_sensor
+from hal import hal_adc as adc
+from hal import hal_ir_sensor as ir_sensor
+from hal import hal_dc_motor as dc_motor
+from hal import hal_servo as servo
+from hal import hal_led as led
 
 csv_file = 'database.csv'
 
@@ -53,10 +53,7 @@ datas = {
 
 def update_data(data_storage):
     values = [temp_humid_sensor.read_temp_humidity()[0],adc.get_adc_value(1),adc.get_adc_value(0),ir_sensor.get_ir_sensor_state(),temp_humid_sensor.read_temp_humidity()[1]]
-    if values[4] == -100:
-        values[4] = 50
-    if values[0] == -100:
-        values[0] = 25
+    
     current_time = datetime.now().strftime('%H:%M:%S')
     data_storage["time"].append(current_time)
     data_storage["time"].pop(0)
@@ -100,12 +97,11 @@ def analyze_data(df):
     
     return analysis
 
-
-app = Flask(__name__, template_folder='dashboard')
+app = Flask(__name__, template_folder='../dashboard')
 
 @app.route("/")
 def home():
-    return render_template('dashboard.html')
+    return render_template('index.html')
 
 @app.route('/dashboard')
 def dashboard():
@@ -115,15 +111,7 @@ def dashboard():
 def data():
     update_data(datas)
     return jsonify(datas)
-
-@app.route('/stopadj', methods=['POST'])
-def stop_adj():
-    mon.stopadj()
-    return '', 204  
-
-@app.route('/about')
-def about():
-    return render_template('about.html')          
+            
        
 if __name__ == '__main__':
     temp_humid_sensor.init()
@@ -132,6 +120,6 @@ if __name__ == '__main__':
     adc.init()
     servo.init()
     led.init()
-    adjustment_thread = Thread(target=mon.adjustment)
-    adjustment_thread.start()
+    '''adjustment_thread = Thread(target=mon.adjustment)
+    adjustment_thread.start()'''
     app.run(debug=True)
