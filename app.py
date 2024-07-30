@@ -16,7 +16,7 @@ from src.hal import hal_servo as servo
 from src.hal import hal_led as led
 
 
-csv_file = 'database.csv'
+csv_file = 'cool.csv'
 run_count = 0
 
 # Function to log data into the CSV file
@@ -80,16 +80,7 @@ def update_data(data_storage):
     print(data_storage)
 
 
-def init():
-    temp_humid_sensor.init()
-    ir_sensor.init()
-    dc_motor.init()
-    adc.init()
-    servo.init()
-    led.init()
-    adjustment_thread = Thread(target=mon.adjustment)
-    adjustment_thread.start()
-    print("garden running")
+
 # Function to read the data from the CSV file into a DataFrame
 def read_data():
     if os.path.exists(csv_file) and os.path.getsize(csv_file) > 0:
@@ -137,8 +128,21 @@ def stop_adj():
 def about():
     return render_template('about.html')          
        
+def init():
+    temp_humid_sensor.init()
+    ir_sensor.init()
+    dc_motor.init()
+    adc.init()
+    servo.init()
+    led.init()
+    adjustment_thread = Thread(target=mon.adjustment)
+    adjustment_thread.start()
+    print("garden running")
+    app.run(debug=False)
+
+
+        
+
 if __name__ == '__main__':
     if log.main() == True:
         init()
-        app.run(debug=True)
-
