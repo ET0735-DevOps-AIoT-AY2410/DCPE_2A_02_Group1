@@ -36,45 +36,38 @@ html {
     overflow-x: hidden;
     padding: 0;
     margin: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
 }
 
 body {
     max-width: 100%;
     min-height: 100vh;
     overflow-x: hidden;
+    overflow-y: hidden;
     padding: 0;
     margin: 0;
-    background-color: #f0f0f0;
+    background-position: center;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
     font-family: 'Restora Neue';
-    display: flex;
-    flex-direction: column;
-}
 
-.gridcontainerab {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    background-color: #fff;
-    height: 100%;
-    width: 100%;
 }
 
 #pagetop {
-    width: 100%;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
+    height: 80px;
     background-color: var(--cadet-gray);
+    z-index: 4;
+    grid-area: 1 / 1 / span 1 / span 1;
 }
 
 #logo {
-    text-decoration: none;
-    color: #252a34;
-    display: flex;
-    align-items: center;
+    position: absolute;
+    display: inline-block;
+    left: -100px;
 }
 
 #sidenav {
@@ -97,7 +90,6 @@ body {
     position: relative;
     margin: 10px;
     margin-left: 3px;
-    /*margin-top: 25px;*/
     padding: 0;
     outline: none;
     border: none;
@@ -111,6 +103,22 @@ body {
 }
 
 
+.fa {
+    position: relative;
+    width: 70px;
+    height: 40px;
+    top: 14px;
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 11px;
+}
+
+.nav-item {
+    position: relative;
+    top: 11px;
+    margin-left: 10px;
+}
+
 #sidenav a:hover {
     background: var(--lavender-web);
     border-radius: 10px 0 0 10px;
@@ -119,12 +127,20 @@ body {
 #sidenav:hover {
     width: 200px;
     transition: all 0.5s ease;
+
+}
+
+ul {
+     margin: 0;
+     padding: 0;
+
 }
 
 #nav-logo {
+    position: relative;
+    text-align: center;
     display: flex;
-    align-items: center;
-    padding: 20px 0;
+    transition: all 0.5s ease;
 }
 
 
@@ -157,6 +173,17 @@ body {
 
 #nav-dashboard span {
     top: 14px;
+
+}
+
+.gridcontainerdb {
+    display: grid;
+    background-image: url(../static/homepage_BG.png);
+    background-size: cover;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    width: 100%;
+    height: max-content;
 }
 
 
@@ -167,7 +194,7 @@ main {
     justify-content: center;
     height: 100%;
     width: calc(100% - 75px);
-    margin-left: 75px;
+    margin-right: 75px;
 }
 
 .graph-container {
@@ -182,17 +209,18 @@ main {
     height: 100%;
     padding: 20px;
     box-sizing: border-box;
+    font-family: 'Source Sans Pro Bold';
+    font-size: larger;
 }
 
 .graph {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 10px;
+    padding-top: 0px;
     display: flex;
     align-items: center;
     justify-content: center;
     height: 300px;
+    margin-bottom: 30px;
 }
 
 #phChart { grid-area: phChart; }
@@ -200,11 +228,11 @@ main {
 #humidityChart { grid-area: humidityChart; }
 #lightChart { 
     grid-area: lightChart; 
-    padding-right: 40px; /* Adjust padding to make it look even */
+    /* padding-right: 40px;  Adjust padding to make it look even */
 }
 #ecChart { 
     grid-area: ecChart; 
-    padding-left: 40px; /* Adjust padding to make it look even */
+    /* padding-left: 40px;  Adjust padding to make it look even */
 }
 
 @media (max-width: 768px) {
@@ -218,10 +246,21 @@ main {
 }
 
 .current-levels {
+    margin-top: 0px;
+    margin-bottom: 20px;
+    text-align: center;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 40vh;
     margin-bottom: 20px;
 }
 
 .current-levels div {
     font-size: 16px;
+
+    margin-top: 20px;
+
     margin-bottom: 10px;
+
 }

@@ -265,27 +265,6 @@ b span {
     height: 2px;
 }
 
-.grid-content {
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.grid-containerdb {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    height: 0px;
-    width: 100%;
-}
-
-#spacer {
-    margin: 100px;
-}
-
 .gridcontainerab {
     display: grid;
     background-color: var(--cadet-gray);
