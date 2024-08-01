@@ -2,7 +2,6 @@ from flask import Flask, render_template, jsonify, request
 import pandas as pd
 import numpy as np
 import random
-import random
 import os
 from datetime import datetime
 import time
@@ -62,12 +61,6 @@ def update_data(data_storage):
         values[4] = round(random.uniform(70, 80), 0)
         values[4] = round(random.uniform(70, 80), 0)
     if values[0] == -100:
-        values[0] = round(random.uniform(25, 27), 1)
-    if values[3] == True:
-        values[3] = round(random.uniform(1,6), 2)
-    else:
-        values[3] = round(random.uniform(7,8), 2)
-    current_time = datetime.now().strftime('%M:%S')
         values[0] = round(random.uniform(25, 27), 1)
     if values[3] == True:
         values[3] = round(random.uniform(1,6), 2)
