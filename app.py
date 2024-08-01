@@ -2,6 +2,7 @@ from flask import Flask, render_template, jsonify, request
 import pandas as pd
 import numpy as np
 import random
+import random
 import os
 from datetime import datetime
 import time
@@ -59,7 +60,14 @@ def update_data(data_storage):
     values = [temp_humid_sensor.read_temp_humidity()[0],adc.get_adc_value(1),adc.get_adc_value(0),ir_sensor.get_ir_sensor_state(),temp_humid_sensor.read_temp_humidity()[1]]
     if values[4] == -100:
         values[4] = round(random.uniform(70, 80), 0)
+        values[4] = round(random.uniform(70, 80), 0)
     if values[0] == -100:
+        values[0] = round(random.uniform(25, 27), 1)
+    if values[3] == True:
+        values[3] = round(random.uniform(1,6), 2)
+    else:
+        values[3] = round(random.uniform(7,8), 2)
+    current_time = datetime.now().strftime('%M:%S')
         values[0] = round(random.uniform(25, 27), 1)
     if values[3] == True:
         values[3] = round(random.uniform(1,6), 2)
@@ -69,6 +77,7 @@ def update_data(data_storage):
     data_storage["time"].append(current_time)
     data_storage["time"].pop(0)
     
+    data_storage["ph"].append(values[3])
     data_storage["ph"].append(values[3])
     data_storage["ph"].pop(0)
     
@@ -84,6 +93,7 @@ def update_data(data_storage):
     data_storage["ec"].append(values[1])
     data_storage["ec"].pop(0)
     print(data_storage)
+
 
 
 
@@ -115,6 +125,7 @@ app = Flask(__name__, template_folder='dashboard')
 @app.route("/")
 def home():
     return render_template('index.html')
+    return render_template('index.html')
 
 @app.route('/dashboard')
 def dashboard():
@@ -144,7 +155,7 @@ def init():
     adjustment_thread = Thread(target=mon.adjustment)
     adjustment_thread.start()
     print("garden running")
-    app.run(debug=True)
+    app.run(debug=False)
 
 if __name__ == '__main__':
     if log.main() == True:
