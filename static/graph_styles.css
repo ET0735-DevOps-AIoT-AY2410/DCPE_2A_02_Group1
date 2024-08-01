@@ -102,6 +102,7 @@ body {
     width: 300px;
 }
 
+
 .fa {
     position: relative;
     width: 70px;
@@ -126,12 +127,22 @@ body {
 #sidenav:hover {
     width: 200px;
     transition: all 0.5s ease;
+
 }
 
 ul {
      margin: 0;
      padding: 0;
+
 }
+
+#nav-logo {
+    position: relative;
+    text-align: center;
+    display: flex;
+    transition: all 0.5s ease;
+}
+
 
 #nav-logo {
     position: relative;
@@ -162,6 +173,7 @@ ul {
 
 #nav-dashboard span {
     top: 14px;
+
 }
 
 .gridcontainerdb {
@@ -173,6 +185,7 @@ ul {
     width: 100%;
     height: max-content;
 }
+
 
 main {
     display: flex;
@@ -240,9 +253,14 @@ main {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     height: 40vh;
+    margin-bottom: 20px;
 }
 
 .current-levels div {
     font-size: 16px;
+
     margin-top: 20px;
+
+    margin-bottom: 10px;
+
 }
