@@ -1,12 +1,9 @@
 from flask import Flask, render_template, jsonify, request
-import pandas as pd
-import numpy as np
 import random
-import random
+import csv
 import os
 from datetime import datetime
 import time
-import src.database as db
 import src.Monitoring as mon
 import src.login as log
 from threading import Thread
@@ -18,42 +15,20 @@ from src.hal import hal_servo as servo
 from src.hal import hal_led as led
 
 
-
-csv_file = 'database.csv'
-run_count = 0
-
-# Function to log data into the CSV file
 def log_data(ecval, temp, humidity, phlvl, light):
-    timestamp = datetime.now().strftime('%H:%M:%S')
-    data = {
-        'timestamp': [timestamp],
-        'EC Level': [ecval],
-        'Temperature': [temp],
-        'Humidity': [humidity],
-        'pH Level': [phlvl],
-        'Light Level': [light],
-    }
-    
-    df = pd.DataFrame(data)
-    if os.path.exists(csv_file) and os.path.getsize(csv_file) > 0:
-        df.to_csv(csv_file, mode='a', index=False, header=False)
-    else:
-        df.to_csv(csv_file, mode='w', index=False, header=True)
-
+    timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    data = [timestamp, ecval, temp, humidity, phlvl, light]
+    with open('database.csv', 'a', newline='') as csvfile:
+        writer = csv.writer(csvfile, delimiter="|")
+        writer.writerow(data)
 
 datas = {
-        #'''"time": [datetime.now().strftime('%H:%M:%S')],
-        #"ph": [values[3]],
-        #"temperature": [values[0]],
-        #"humidity": [values[4]],
-        #"light": [values[2]],
-        #"ec": [values[1]]'''
-        "time": [datetime.now().strftime('%H:%M:%S')],
-        "ph": [1],
-        "temperature": [1],
-        "humidity": [1],
-        "light": [1],
-        "ec": [1]
+    "time": [datetime.now().strftime('%H:%M:%S')],
+    "ph": [1],
+    "temperature": [1],
+    "humidity": [1],
+    "light": [1],
+    "ec": [1]
     }
 
 def update_data(data_storage):
@@ -67,17 +42,11 @@ def update_data(data_storage):
         values[3] = round(random.uniform(1,6), 2)
     else:
         values[3] = round(random.uniform(7,8), 2)
-    current_time = datetime.now().strftime('%M:%S')
-        values[0] = round(random.uniform(25, 27), 1)
-    if values[3] == True:
-        values[3] = round(random.uniform(1,6), 2)
-    else:
-        values[3] = round(random.uniform(7,8), 2)
+    log_data(values[0],values[1],values[2],values[3],values[4])
     current_time = datetime.now().strftime('%M:%S')
     data_storage["time"].append(current_time)
     data_storage["time"].pop(0)
     
-    data_storage["ph"].append(values[3])
     data_storage["ph"].append(values[3])
     data_storage["ph"].pop(0)
     
@@ -94,37 +63,10 @@ def update_data(data_storage):
     data_storage["ec"].pop(0)
     print(data_storage)
 
-
-
-
-# Function to read the data from the CSV file into a DataFrame
-def read_data():
-    if os.path.exists(csv_file) and os.path.getsize(csv_file) > 0:
-        df = pd.read_csv(csv_file)
-        return df
-    else:
-        return pd.DataFrame(columns=['timestamp', 'EC Level', 'Temperature', 'Humidity', 'pH Level', 'Light Level'])
-
-# Function to analyze data using NumPy
-def analyze_data(df):
-    analysis = {}
-    columns = ['EC Level', 'Temperature', 'Humidity', 'pH Level', 'Light Level']
-    
-    for col in columns:
-        data = df[col].values
-        analysis[col] = {
-            'mean': np.mean(data),
-            'median': np.median(data),
-            'std_dev': np.std(data)
-        }
-    
-    return analysis
-
 app = Flask(__name__, template_folder='dashboard')
 
 @app.route("/")
 def home():
-    return render_template('index.html')
     return render_template('index.html')
 
 @app.route('/dashboard')
@@ -154,7 +96,6 @@ def init():
     led.init()
     adjustment_thread = Thread(target=mon.adjustment)
     adjustment_thread.start()
-    print("garden running")
     app.run(debug=False)
 
 if __name__ == '__main__':
