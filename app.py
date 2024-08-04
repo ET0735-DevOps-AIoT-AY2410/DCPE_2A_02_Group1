@@ -96,7 +96,7 @@ def init():
     led.init()
     adjustment_thread = Thread(target=mon.adjustment)
     adjustment_thread.start()
-    app.run(debug=False)
+    app.run(debug=False,host='0.0.0.0')
 
 if __name__ == '__main__':
     if log.main() == True:
