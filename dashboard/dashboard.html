@@ -30,8 +30,8 @@
                 ph: 8,
                 temperature: 27,
                 humidity: 80,
-                light: 500,
-                ec: 399
+                light: 600,
+                ec: 500
             };
 
             function initializeCharts() {
@@ -100,7 +100,10 @@
 
                 if (elementId === 'current-light' && value < threshold) {
                     element.style.color = 'red';
-                } else if (elementId !== 'current-light' && value > threshold) {
+                }else if (elementId === 'current-ec' && value <= threshold) {
+                    element.style.color = 'red';
+                }
+                 else if (elementId !== 'current-light' && elementId !== 'current-ec' && value > threshold) {
                     element.style.color = 'red';
                 } else {
                     element.style.color = 'black';
