@@ -8,35 +8,21 @@ from datetime import datetime
 
 # File path for the CSV file
 csv_file = 'src/database.csv'
-temp_file = 'src/tempanalysis.csv'
+time_file = 'src/timeanalysis.csv'
 ec_file = 'src/ecanalysis.csv'
 # Function to log data into the CSV file
-def log_data(temp, ecval, light, phval, humidity):
-    # Get the current timestamp
-    timestamp = datetime.now().strftime('%H:%M:%S')
-    if temp == -100:
-        temp = 25.0
-    # Create a dictionary for the new entry
-    data = {
-        'timestamp': [timestamp],
-        'Temperature': [temp],
-        'EC Level': [ecval],
-        'Light Level': [light],
-        'pH Level': [phval],
-        'Humidity': [humidity]        
-
-    }
+def log_data(data):
     
     # Create a DataFrame from the dictionary
     df = pd.DataFrame(data)
     
     # Check if the CSV file exists and is not empty
-    if os.path.exists(csv_file) and os.path.getsize(csv_file) > 0:
+    if os.path.exists(time_file) and os.path.getsize(time_file) > 0:
         # Append the DataFrame to the CSV file
-        df.to_csv(csv_file, mode='a', index=False, header=False)
+        df.to_csv(time_file, mode='a', index=False, header=False)
     else:
         # Create the CSV file with the header
-        df.to_csv(csv_file, mode='w', index=False, header=True)
+        df.to_csv(time_file, mode='w', index=False, header=True)
 
 # Function to read the data from the CSV file into a DataFramew
 def analyze_data(df):
@@ -64,10 +50,15 @@ def read_data():
         return pd.DataFrame(columns=['timestamp', 'EC Level', 'Temperature', 'Humidity', 'pH Level', 'Light Level'])
 
 def historical_data(df):
-    
+    time_filter = ['2024-08-04']
+    analysis = pd.DataFrame[df['Time'].isin(time_filter)]
+    return analysis
     
 def main():
     df=read_data()
+    analysis=historical_data(df)
+    log_data(analysis)
+
 
 
 
