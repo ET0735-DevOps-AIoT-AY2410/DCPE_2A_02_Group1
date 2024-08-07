@@ -12,9 +12,11 @@ values = []
 stop_event = Event()
 
 def adjust_temp(temperature):
-    if  temperature > 30:
+    if  temperature > 27:
         dc_motor.set_motor_speed(70)
-    else:
+    if temperature == -100:
+        dc_motor.set_motor_speed(70)
+    elif temperature <= 27:
         dc_motor.set_motor_speed(0)
 
 def adjust_ec(ec_level):
@@ -38,7 +40,6 @@ def adjustment():
             adjust_ec(values[1])
             adjust_light(values[2])
             time.sleep(2)
-            print("adjusting")
         except:
             pass
 
