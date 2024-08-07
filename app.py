@@ -99,9 +99,8 @@ def init():
     
 
 if __name__ == '__main__':
-    init()
-    #if log.main() == True:
-    #    init()
+    if log.main() == True:
+        init()
         
 
         
