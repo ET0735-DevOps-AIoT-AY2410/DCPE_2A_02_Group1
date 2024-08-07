@@ -1,5 +1,4 @@
 import time
-import src.database as db
 from threading import Thread, Event
 from src.hal import hal_temp_humidity_sensor as temp_humid_sensor
 from src.hal import hal_adc as adc
@@ -8,11 +7,12 @@ from src.hal import hal_dc_motor as dc_motor
 from src.hal import hal_servo as servo
 from src.hal import hal_led as led
 
+
 values = []
 stop_event = Event()
 
 def adjust_temp(temperature):
-    if  temperature < 30:
+    if  temperature > 30:
         dc_motor.set_motor_speed(70)
     else:
         dc_motor.set_motor_speed(0)
@@ -37,7 +37,6 @@ def adjustment():
         adjust_ec(values[1])
         adjust_light(values[2])
         time.sleep(1)
-        db.log_data(values[0],values[1],values[2],values[3],values[4])
 
 def stopadj():
     stop_event.set()

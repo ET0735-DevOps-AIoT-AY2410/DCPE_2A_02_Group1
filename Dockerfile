@@ -1,26 +1,31 @@
 # Use an official Python image from the Docker Hub with build tools
-FROM python:3.9-slim
+FROM arm32v7/python:3
 
+ENV SPI_PATH /app/SPI-Py
+
+ENV TZ=Asia/Singapore
 # Set the working directory in the container
 WORKDIR /app
-
-# Install dependencies for building NumPy and other packages
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    gfortran \
-    libblas-dev \
-    liblapack-dev \
-    && apt-get clean
 
 # Copy the requirements file into the container
 COPY requirements.txt requirements.txt
 
-# Install any needed packages specified in requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhost.org -r requirements.txt 
 
+RUN pip3 install --no-cache-dir rpi.gpio\
+ smbus
+
+RUN apt-get update
 # Copy the rest of the application code into the container
 COPY . .
 
+WORKDIR $SPI_PATH
+
+RUN python3 setup.py install
+
+RUN pip3 install spidev
+
+WORKDIR /app
 # Expose port 5000 for the Flask app
 EXPOSE 5000
 
@@ -28,4 +33,4 @@ EXPOSE 5000
 ENV FLASK_APP=app.py
 
 # Run the application
-CMD ["python", "app.py"]
+CMD ["python", "-u", "app.py"]
