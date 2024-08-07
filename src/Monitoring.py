@@ -36,12 +36,10 @@ def adjustment():
         try:
             global values 
             values = [temp_humid_sensor.read_temp_humidity()[0],adc.get_adc_value(1),adc.get_adc_value(0),ir_sensor.get_ir_sensor_state(),temp_humid_sensor.read_temp_humidity()[1]]
-            print(values)
             adjust_temp(values[0])
             adjust_ec(values[1])
             adjust_light(values[2])
             time.sleep(2)
-            print("adjusting")
         except:
             pass
 

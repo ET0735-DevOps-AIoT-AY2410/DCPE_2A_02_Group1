@@ -50,7 +50,6 @@ def rfid_login():
     lcd.lcd_clear()
     lcd.lcd_display_string("Bring Card", 1)
     while 1:
-        print("im here")
         id = reader.read_id_no_block()
         id = str(id)
         if id == '356639569392':
