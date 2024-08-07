@@ -1,0 +1,266 @@
+@font-face {
+    font-family: 'Source Sans Pro Bold';
+    src: url(/static/fonts/SourceSansPro-Bold.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'Source Sans Pro Semibold';
+    src: url(/static/fonts/SourceSansPro-Semibold.otf) format('opentype');
+}
+
+:root {
+    /* CSS HEX */
+    --lavender-web: #d8ddefff;
+    --cool-gray: #a0a4b8ff;
+    --cadet-gray: #899cacff;
+    --air-force-blue: #7293a0ff;
+    --moonstone: #679c9fff;
+    --verdigris: #5ca59eff;
+    --keppel: #45b69cff;
+    --mint: #21d19fff;
+
+    /* CSS HSL */
+    --lavender-web: hsla(227, 42%, 89%, 1);
+    --cool-gray: hsla(230, 14%, 67%, 1);
+    --cadet-gray: hsla(207, 17%, 61%, 1);
+    --air-force-blue: hsla(197, 19%, 54%, 1);
+    --moonstone: hsla(183, 23%, 51%, 1);
+    --verdigris: hsla(174, 29%, 50%, 1);
+    --keppel: hsla(166, 45%, 49%, 1);
+    --mint: hsla(163, 73%, 47%, 1);
+}
+
+html {
+    box-sizing: border-box;
+    max-width: 100%;
+    overflow-x: hidden;
+    padding: 0;
+    margin: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+body {
+    max-width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    padding: 0;
+    margin: 0;
+    background-position: center;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    font-family: 'Restora Neue';
+
+    display: flex;
+    flex-direction: column;
+}
+
+#pagetop {
+    display: flex;
+    height: 80px;
+    background-color: var(--cadet-gray);
+    z-index: 4;
+    grid-area: 1 / 1 / span 1 / span 1;
+}
+
+#logo {
+    position: absolute;
+    display: inline-block;
+    left: -100px;
+}
+
+#sidenav {
+    grid-area: 1 / 2 / span 2 / span 1;
+    z-index: 6;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    height: max-content;
+    right: 0;
+    background: var(--moonstone);
+    width: 75px;
+    overflow: hidden;
+    transition: width 0.2s linear;
+    border-radius: 10px 0 0 10px;
+    box-shadow: -20px 20px 35px rgba(0,0,0,0.1);
+}
+
+#sidenav a {
+    position: relative;
+    margin: 10px;
+    margin-left: 3px;
+    padding: 0;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    box-sizing: border-box;
+    font-family: 'Source Sans Pro Bold';
+    color: black;
+    font-size: 14px;
+    display: table;
+    width: 300px;
+}
+
+
+.fa {
+    position: relative;
+    width: 70px;
+    height: 40px;
+    top: 14px;
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 11px;
+}
+
+.nav-item {
+    position: relative;
+    top: 11px;
+    margin-left: 10px;
+}
+
+#sidenav a:hover {
+    background: var(--lavender-web);
+    border-radius: 10px 0 0 10px;
+}
+
+#sidenav:hover {
+    width: 200px;
+    transition: all 0.5s ease;
+
+}
+
+ul {
+     margin: 0;
+     padding: 0;
+
+}
+
+#nav-logo {
+    position: relative;
+    text-align: center;
+    display: flex;
+    transition: all 0.5s ease;
+}
+
+
+#nav-logo {
+    position: relative;
+    text-align: center;
+    display: flex;
+    transition: all 0.5s ease;
+}
+
+#nav-logo img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    margin: 23px 0 0 16px;
+}
+
+#nav-logo span{
+    font-family: 'Source Sans Pro Bold';
+    font-weight: bold;
+    padding: 15px;
+    font-size: 18px;
+    text-transform: uppercase;
+    margin-top: 8px;
+}
+
+#nav-dashboard .fa {
+    top: 15px;
+}
+
+#nav-dashboard span {
+    top: 14px;
+
+}
+
+.gridcontainerdb {
+    display: grid;
+    background-image: url(../static/homepage_BG.png);
+    background-size: cover;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    width: 100%;
+    height: max-content;
+}
+
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: calc(100% - 75px);
+    margin-right: 75px;
+}
+
+.graph-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-areas: 
+        "phChart temperatureChart humidityChart"
+        "lightChart ecChart ecChart";
+    gap: 20px;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    font-family: 'Source Sans Pro Bold';
+    font-size: larger;
+}
+
+.graph {
+    padding: 10px;
+    padding-top: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    margin-bottom: 30px;
+}
+
+#phChart { grid-area: phChart; }
+#temperatureChart { grid-area: temperatureChart; }
+#humidityChart { grid-area: humidityChart; }
+#lightChart { 
+    grid-area: lightChart; 
+    /* padding-right: 40px;  Adjust padding to make it look even */
+}
+#ecChart { 
+    grid-area: ecChart; 
+    /* padding-left: 40px;  Adjust padding to make it look even */
+}
+
+@media (max-width: 768px) {
+    .gridcontainerab {
+        padding: 10px;
+    }
+
+    .graph {
+        height: 200px;
+    }
+}
+
+.current-levels {
+    margin-top: 0px;
+    margin-bottom: 20px;
+    text-align: center;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 40vh;
+    margin-bottom: 20px;
+}
+
+.current-levels div {
+    font-size: 16px;
+
+    margin-top: 20px;
+
+    margin-bottom: 10px;
+
+}
