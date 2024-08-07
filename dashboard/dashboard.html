@@ -17,21 +17,21 @@
                 hAxis: {title: 'Time'},
                 vAxis: {minValue: 0},
                 legend: 'none',
-                backgroundColor: 'd8ddefff',
-                chartArea: {width: '70%', height: '60%'},
+                backgroundColor: { fill:'transparent' },
+                chartArea: {width: '70%', height: '50%'},
                 tooltip: {isHtml: true},
                 pointSize: 5,
-                colors: ['#b3fcb6']
+                colors: ['#45b59b']
             };
             let updateInterval;
             const maxPoints = 8; // Maximum number of points to display
 
             const thresholds = {
-                ph: 7,
-                temperature: 25,
-                humidity: 60,
-                light: 500,
-                ec: 399
+                ph: 8,
+                temperature: 27,
+                humidity: 80,
+                light: 600,
+                ec: 500
             };
 
             function initializeCharts() {
@@ -63,6 +63,7 @@
                 ecChart = new google.visualization.LineChart(document.getElementById('ecChart'));
 
                 StartFetchingData();
+                updateTime();
             }
 
             function StartFetchingData() {
@@ -96,7 +97,13 @@
             function updateValue(elementId, value, threshold) {
                 const element = document.getElementById(elementId);
                 element.innerText = value;
-                if (value > threshold) {
+
+                if (elementId === 'current-light' && value < threshold) {
+                    element.style.color = 'red';
+                }else if (elementId === 'current-ec' && value <= threshold) {
+                    element.style.color = 'red';
+                }
+                 else if (elementId !== 'current-light' && elementId !== 'current-ec' && value > threshold) {
                     element.style.color = 'red';
                 } else {
                     element.style.color = 'black';
@@ -117,18 +124,13 @@
                 options.title = title;
                 chart.draw(dataTable, options);
             }
-            document.addEventListener('DOMContentLoaded', function() {
-                document.getElementById('stopadj').addEventListener('click', function() {
-                    fetch('/stopadj', {
-                        method: 'POST'
-                    })
-                    .then(response => {
-                        if (response.status === 204) {
-                            alert('Stopped');
-                        }
-                    });
-                });
-            });
+        function updateTime() {
+            const now = new Date();
+            const formattedTime = now.toLocaleTimeString();
+            document.getElementById('current-time').innerText = formattedTime;
+        }
+
+        setInterval(updateTime, 1000);
         </script>
     </head>
     <body>
@@ -176,8 +178,11 @@
                         </svg>
                     </div>
                 </a>
+                <div id="currenttime">
+                    <h2>Current Time: <span id="current-time">N/A</span></h2>
+                </div>
             </div>
-
+            
             <nav id = "sidenav">
                 <ul>
                     <li id = "nav-logo">
@@ -207,27 +212,27 @@
             <main>
                 <div class="graph-container">
                     <div class="current-levels">
-                        <div>Current pH Level: <span id="current-ph">N/A</span></div>
+                        <div class="title">Current pH Level: <span id="current-ph">N/A</span></div>
                         <div class="graph" id="phChart"></div>
                     </div>
     
                     <div class="current-levels">
-                        <div>Current Temperature (°C): <span id="current-temperature">N/A</span></div>
+                        <div class="title">Current Temperature (°C): <span id="current-temperature">N/A</span></div>
                         <div class="graph" id="temperatureChart"></div>
                     </div>
     
                     <div class="current-levels">
-                        <div>Current Humidity (%): <span id="current-humidity">N/A</span></div>
+                        <div class="title">Current Humidity (%): <span id="current-humidity">N/A</span></div>
                         <div class="graph" id="humidityChart"></div>
                     </div>
     
                     <div class="current-levels">
-                        <div>Current Light (lux): <span id="current-light">N/A</span></div>
+                        <div class="title">Current Light (lux): <span id="current-light">N/A</span></div>
                         <div class="graph" id="lightChart"></div>
                     </div>
     
                     <div class="current-levels">
-                        <div>Current EC (mS/cm): <span id="current-ec">N/A</span></div>
+                        <div class="title">Current EC (mS/cm): <span id="current-ec">N/A</span></div>
                         <div class="graph" id="ecChart"></div>
                     </div>
                 </div>

@@ -35,11 +35,10 @@ def update_data(data_storage):
     values = [temp_humid_sensor.read_temp_humidity()[0],adc.get_adc_value(1),adc.get_adc_value(0),ir_sensor.get_ir_sensor_state(),temp_humid_sensor.read_temp_humidity()[1]]
     if values[4] == -100:
         values[4] = round(random.uniform(70, 80), 0)
-        values[4] = round(random.uniform(70, 80), 0)
     if values[0] == -100:
         values[0] = round(random.uniform(25, 27), 1)
     if values[3] == True:
-        values[3] = round(random.uniform(1,6), 2)
+        values[3] = round(random.uniform(8,12), 2)
     else:
         values[3] = round(random.uniform(7,8), 2)
     log_data(values[0],values[1],values[2],values[3],values[4])
@@ -97,6 +96,7 @@ def init():
     adjustment_thread = Thread(target=mon.adjustment)
     adjustment_thread.start()
     app.run(debug=False,host='0.0.0.0')
+    
 
 if __name__ == '__main__':
     if log.main() == True:
