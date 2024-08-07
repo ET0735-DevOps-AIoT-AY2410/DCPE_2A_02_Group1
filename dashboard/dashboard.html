@@ -18,7 +18,7 @@
                 vAxis: {minValue: 0},
                 legend: 'none',
                 backgroundColor: 'd8ddefff',
-                chartArea: {width: '70%', height: '60%'},
+                // chartArea: {width: '70%', height: '60%'},
                 tooltip: {isHtml: true},
                 pointSize: 5,
                 colors: ['#b3fcb6']
@@ -129,6 +129,25 @@
                     });
                 });
             });
+            /*Add two different specs of graph styling^^ for fullscreen and current-level mode*/
+            function expand(id){
+                // get the element
+                var box = document.getElementsByClassName("current-levels")[id];
+                var fullscreen = document.getElementsByClassName("fullscreen")[0];
+                if (fullscreen==undefined){
+                    console.log(box)
+    
+                    // set top and left properties
+                    box.style.setProperty("left", box.offsetLeft + "px");
+                    box.style.setProperty("top", box.offsetTop + "px");
+
+                    
+                    // now change the class for the animation will work
+                    box.className = "fullscreen";
+                }else{
+                    fullscreen.className = "current-levels";
+                }
+            }
         </script>
     </head>
     <body>
@@ -206,32 +225,34 @@
             </nav>
             <main>
                 <div class="graph-container">
-                    <div class="current-levels">
+                    <div class="current-levels" onClick="expand(0)" class="fullscreen">
                         <div>Current pH Level: <span id="current-ph">N/A</span></div>
                         <div class="graph" id="phChart"></div>
                     </div>
     
-                    <div class="current-levels">
+                    <div class="current-levels" onClick="expand(1)" class="fullscreen">
                         <div>Current Temperature (°C): <span id="current-temperature">N/A</span></div>
                         <div class="graph" id="temperatureChart"></div>
                     </div>
     
-                    <div class="current-levels">
+                    <div class="current-levels" onClick="expand(2)" class="fullscreen">
                         <div>Current Humidity (%): <span id="current-humidity">N/A</span></div>
                         <div class="graph" id="humidityChart"></div>
                     </div>
     
-                    <div class="current-levels">
+                    <div class="current-levels" onClick="expand(3)" class="fullscreen">
                         <div>Current Light (lux): <span id="current-light">N/A</span></div>
                         <div class="graph" id="lightChart"></div>
                     </div>
     
-                    <div class="current-levels">
+                    <div class="current-levels" onClick="expand(4)" class="fullscreen">
                         <div>Current EC (mS/cm): <span id="current-ec">N/A</span></div>
                         <div class="graph" id="ecChart"></div>
                     </div>
                     
-                    <button id="stopadj">STOP!</button>
+                    <div id="btnarea">
+                        <button id="stopadj">STOP!</button>
+                    </div>
                 </div>
             </main>
         </div>        

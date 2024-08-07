@@ -219,8 +219,7 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 300px;
-    margin-bottom: 30px;
+    margin: 30px;
 }
 
 #phChart { grid-area: phChart; }
@@ -249,18 +248,64 @@ main {
     margin-top: 0px;
     margin-bottom: 20px;
     text-align: center;
-    background-color: white;
+    background-color: #d8ddefff;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    height: 40vh;
+    height: 40vh !important;
     margin-bottom: 20px;
+    transition: transform .1s;
+   
 }
 
 .current-levels div {
     font-size: 16px;
-
     margin-top: 20px;
-
     margin-bottom: 10px;
+}
 
+.current-levels:hover {
+    transform:scale(1.05);
+    cursor: pointer;
+}
+
+.fullscreen {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0 !important;
+    left: 0 !important;
+    /* transition: all 1s ease-in-out; */
+    background-color: #d8ddefff;
+    border-radius: 8px;
+    z-index: 100000000;
+    text-align: center;
+}
+
+#btnarea {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+}
+
+#stopadj {
+    font-family: 'Source Sans Pro Bold';
+    width: 150px;
+    height: 100px;
+    font-size: 19px;
+    border-radius: 50%;
+    background-color: #f54747;
+    border: 3px solid var(--lavender-web);
+    transition-duration: 0.4s;
+    cursor: pointer;
+    margin: auto;
+}
+
+#stopadj:hover {
+    border: 3px solid red;;
+    background-color: #ad1818;
+}
+
+#stopadj:active {
+    transition: 0.1s;
+    background-color: red;
 }
