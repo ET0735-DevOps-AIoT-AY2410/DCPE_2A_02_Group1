@@ -12,9 +12,11 @@ values = []
 stop_event = Event()
 
 def adjust_temp(temperature):
-    if  temperature > 30:
+    if  temperature > 27:
         dc_motor.set_motor_speed(70)
-    else:
+    if temperature == -100:
+        dc_motor.set_motor_speed(70)
+    elif temperature <= 27:
         dc_motor.set_motor_speed(0)
 
 def adjust_ec(ec_level):
@@ -34,6 +36,7 @@ def adjustment():
         try:
             global values 
             values = [temp_humid_sensor.read_temp_humidity()[0],adc.get_adc_value(1),adc.get_adc_value(0),ir_sensor.get_ir_sensor_state(),temp_humid_sensor.read_temp_humidity()[1]]
+            print(values)
             adjust_temp(values[0])
             adjust_ec(values[1])
             adjust_light(values[2])
