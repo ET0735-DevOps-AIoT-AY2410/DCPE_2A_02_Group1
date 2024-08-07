@@ -18,7 +18,7 @@ def adjust_temp(temperature):
         dc_motor.set_motor_speed(0)
 
 def adjust_ec(ec_level):
-    if ec_level >= 500:
+    if ec_level <= 500:
         servo.set_servo_position(180)
         time.sleep(0.5)
         servo.set_servo_position(0)
