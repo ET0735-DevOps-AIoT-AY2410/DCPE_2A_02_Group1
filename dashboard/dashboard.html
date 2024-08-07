@@ -124,26 +124,6 @@
                 options.title = title;
                 chart.draw(dataTable, options);
             }
-            /*Add two different specs of graph styling^^ for fullscreen and current-level mode*/
-            // function expand(id){
-            //     // get the element
-            //     var box = document.getElementsByClassName("current-levels")[id];
-            //     var fullscreen = document.getElementsByClassName("fullscreen")[0];
-            //     if (fullscreen==undefined){
-            //         console.log(box)
-    
-            //         // set top and left properties
-            //         box.style.setProperty("left", box.offsetLeft + "px");
-            //         box.style.setProperty("top", box.offsetTop + "px");
-
-                    
-            //         // now change the class for the animation will work
-            //         box.className = "fullscreen";
-            //     }else{
-            //         fullscreen.className = "current-levels";
-            //     }
-            // }
-
         function updateTime() {
             const now = new Date();
             const formattedTime = now.toLocaleTimeString();
@@ -255,11 +235,6 @@
                         <div class="title">Current EC (mS/cm): <span id="current-ec">N/A</span></div>
                         <div class="graph" id="ecChart"></div>
                     </div>
-
-                    
-                    <!-- <div id="btnarea">
-                        <button id="stopadj">STOP!</button>
-                    </div> -->
                 </div>
             </main>
         </div>        
