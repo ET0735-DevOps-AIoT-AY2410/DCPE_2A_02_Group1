@@ -1,52 +1,64 @@
 from flask import Flask, render_template, jsonify, request
-import random
-import csv
+import pandas as pd
+import numpy as np
 import os
 from datetime import datetime
 import time
-import src.Monitoring as mon
-import src.login as log
+import database as db
+import Monitoring as mon
 from threading import Thread
-from src.hal import hal_temp_humidity_sensor as temp_humid_sensor
-from src.hal import hal_adc as adc
-from src.hal import hal_ir_sensor as ir_sensor
-from src.hal import hal_dc_motor as dc_motor
-from src.hal import hal_servo as servo
-from src.hal import hal_led as led
+from hal import hal_temp_humidity_sensor as temp_humid_sensor
+from hal import hal_adc as adc
+from hal import hal_ir_sensor as ir_sensor
+from hal import hal_dc_motor as dc_motor
+from hal import hal_servo as servo
+from hal import hal_led as led
+
+csv_file = 'database.csv'
 
 
+# Function to log data into the CSV file
 def log_data(ecval, temp, humidity, phlvl, light):
-    timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    data = [timestamp, ecval, temp, humidity, phlvl, light]
-    with open('database.csv', 'a', newline='') as csvfile:
-        writer = csv.writer(csvfile, delimiter="|")
-        writer.writerow(data)
+    timestamp = datetime.now().strftime('%H:%M:%S')
+    data = {
+        'timestamp': [timestamp],
+        'EC Level': [ecval],
+        'Temperature': [temp],
+        'Humidity': [humidity],
+        'pH Level': [phlvl],
+        'Light Level': [light],
+    }
+    
+    df = pd.DataFrame(data)
+    if os.path.exists(csv_file) and os.path.getsize(csv_file) > 0:
+        df.to_csv(csv_file, mode='a', index=False, header=False)
+    else:
+        df.to_csv(csv_file, mode='w', index=False, header=True)
+
 
 datas = {
-    "time": [datetime.now().strftime('%H:%M:%S')],
-    "ph": [1],
-    "temperature": [1],
-    "humidity": [1],
-    "light": [1],
-    "ec": [1]
+        #'''"time": [datetime.now().strftime('%H:%M:%S')],
+        #"ph": [values[3]],
+        #"temperature": [values[0]],
+        #"humidity": [values[4]],
+        #"light": [values[2]],
+        #"ec": [values[1]]'''
+        "time": [datetime.now().strftime('%H:%M:%S')],
+        "ph": [1],
+        "temperature": [1],
+        "humidity": [1],
+        "light": [1],
+        "ec": [1]
     }
 
 def update_data(data_storage):
     values = [temp_humid_sensor.read_temp_humidity()[0],adc.get_adc_value(1),adc.get_adc_value(0),ir_sensor.get_ir_sensor_state(),temp_humid_sensor.read_temp_humidity()[1]]
-    if values[4] == -100:
-        values[4] = round(random.uniform(70, 80), 0)
-    if values[0] == -100:
-        values[0] = round(random.uniform(25, 27), 1)
-    if values[3] == True:
-        values[3] = round(random.uniform(8,12), 2)
-    else:
-        values[3] = round(random.uniform(7,8), 2)
-    log_data(values[0],values[1],values[2],values[3],values[4])
-    current_time = datetime.now().strftime('%M:%S')
+    
+    current_time = datetime.now().strftime('%H:%M:%S')
     data_storage["time"].append(current_time)
     data_storage["time"].pop(0)
     
-    data_storage["ph"].append(values[3])
+    data_storage["ph"].append(1)
     data_storage["ph"].pop(0)
     
     data_storage["temperature"].append(values[0])
@@ -62,8 +74,6 @@ def update_data(data_storage):
     data_storage["ec"].pop(0)
     print(data_storage)
 
-<<<<<<< HEAD
-=======
 # Function to read the data from the CSV file into a DataFrame
 def read_data():
     if os.path.exists(csv_file) and os.path.getsize(csv_file) > 0:
@@ -87,9 +97,7 @@ def analyze_data(df):
     
     return analysis
 
-
->>>>>>> 8de241a1c580469bbaa4108d832ea3217fcc987f
-app = Flask(__name__, template_folder='dashboard')
+app = Flask(__name__, template_folder='../dashboard')
 
 @app.route("/")
 def home():
@@ -103,32 +111,15 @@ def dashboard():
 def data():
     update_data(datas)
     return jsonify(datas)
-
-@app.route('/stopadj', methods=['POST'])
-def stop_adj():
-    mon.stopadj()
-    return '', 204  
-
-@app.route('/about')
-def about():
-    return render_template('about.html')          
+            
        
-def init():
+if __name__ == '__main__':
     temp_humid_sensor.init()
     ir_sensor.init()
     dc_motor.init()
     adc.init()
     servo.init()
     led.init()
-    adjustment_thread = Thread(target=mon.adjustment)
-    adjustment_thread.start()
-    app.run(debug=False,host='0.0.0.0')
-    
-
-if __name__ == '__main__':
-    if log.main() == True:
-        init()
-        
-
-        
-
+    '''adjustment_thread = Thread(target=mon.adjustment)
+    adjustment_thread.start()'''
+    app.run(debug=True)
