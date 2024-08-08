@@ -26,6 +26,8 @@ RUN python3 setup.py install
 RUN pip3 install spidev
 
 WORKDIR /app
+
+RUN apt install nano -y
 # Expose port 5000 for the Flask app
 EXPOSE 5000
 
