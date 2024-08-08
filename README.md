@@ -55,25 +55,31 @@ Data is continuously updated and shown as a graph on an online dashboard
 
 ## Setup Instructions
 
-### Pulling Docker Image 
-Pull Docker image of this project by using the following command:<br />
-bash<br />
-docker pull<br />
-dennistgb/garden:latest<br />
 
-### Running Docker Container
-Run Docker Container by using the following command:<br />
-bash<br />
-docker run -privileged -d --name<br />
-garden_monitor -p 5000:5000<br />
-dennistgb/garden:latest<br />
+### Pulling the Docker Image
+To pull the Docker image for this project, run the following command:
+bash
+docker pull dennistgb/garden:latest
 
-This will start the container and map port 5000 of the host to port 5000 of the container
+
+### Running the Docker Container
+To run the Docker container, use the following command:
+bash
+docker run -privileged -d --name garden_monitor -p 5000:5000 dennistgb/garden:latest
+
+This will start the container and map port 80 of the host to port 80 of the container.
 
 ### Stopping the Docker Container
-Stop docker container by using the following command:<br />
-bash<br />
+To stop the running container, use the following command:
+bash
+docker stop garden_monitor
+
+
+### Removing the Docker Container
+To remove the container, use the following command:
+bash
 docker rm garden_monitor
+
 
 ## Contributors
  Dennis<br />
