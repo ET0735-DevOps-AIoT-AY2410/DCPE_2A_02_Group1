@@ -17,10 +17,10 @@ def key_pressed(key):
 
 def pass_login():
     lcd = LCD.lcd()
+    lcd.lcd_display_string("Input Password:", 1)
     input_password = ""
     while True:
         key = shared_keypad_queue.get()
-        lcd.lcd_clear()
         lcd.lcd_display_string("Input Password:", 1)
         if key == "#":
             if input_password == PASSWORD:
@@ -34,11 +34,11 @@ def pass_login():
                 time.sleep(2)
                 input_password = ""
                 lcd.lcd_clear()
-                lcd.lcd_display_string("Enter Password:", 1)
+                lcd.lcd_display_string("Input Password:", 1)
         elif key == "*":
             input_password = ""
             lcd.lcd_clear()
-            lcd.lcd_display_string("Enter Password:", 1)
+            lcd.lcd_display_string("Input Password:", 1)
         else:
             input_password += str(key)
             lcd.lcd_display_string("*" * len(input_password), 2)
@@ -50,7 +50,6 @@ def rfid_login():
     lcd.lcd_clear()
     lcd.lcd_display_string("Bring Card", 1)
     while 1:
-        print("im here")
         id = reader.read_id_no_block()
         id = str(id)
         if id == '356639569392':
@@ -58,8 +57,8 @@ def rfid_login():
             lcd.lcd_clear()
             time.sleep(0.5)
             lcd.lcd_display_string("Login Success", 1)
-            lcd.lcd_clear()
             lcd.lcd_display_string(id, 2)
+            lcd.lcd_clear()
             return True
 
 
