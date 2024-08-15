@@ -20,21 +20,11 @@ from hal import hal_buzzer as buzzer
 values = []
 
 def adjust_temp(temperature):
-<<<<<<< HEAD
-    if  temperature > 27:
-=======
-<<<<<<< HEAD
-    if  temperature > 30:
-=======
     if  temperature > 23:
         dc_motor.set_motor_speed(70)
         print("fan on!")
         print(temperature)
     elif temperature == -100:
->>>>>>> 8de241a1c580469bbaa4108d832ea3217fcc987f
->>>>>>> 1296ac9ee0ca9756b6bd09fa95f5b0ef4a591581
-        dc_motor.set_motor_speed(70)
-    if temperature == -100:
         dc_motor.set_motor_speed(70)
     elif temperature <= 27:
         dc_motor.set_motor_speed(0)
