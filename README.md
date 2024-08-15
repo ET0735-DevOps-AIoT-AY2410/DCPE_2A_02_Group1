@@ -89,7 +89,7 @@ docker rm garden_monitor
 
 ## Contributors
 
-- Dennis -> Backend: Monitoring.py, Displaying Graphs, and Login.py
-- Reynard -> Frontend: index.html, about.html, dashboard.html, styles.css, graph_styles.css
+- Dennis -> Backend: Monitoring.py, Displaying Graphs, Login.py and Unit Test Cases
+- Reynard -> Frontend: index.html, about.html, dashboard.html, styles.css, graph_styles.css and Unit Test Cases
 - Heng Jeang -> Hardware test cases
 - Yan Tiong -> database.py for analysis (tentative)
