@@ -6,6 +6,9 @@ from datetime import datetime
 import time
 import src.Monitoring as mon
 import src.login as log
+import src.database as db
+import numpy as np
+import pandas as pd
 from threading import Thread
 from src.hal import hal_temp_humidity_sensor as temp_humid_sensor
 from src.hal import hal_adc as adc
@@ -62,8 +65,6 @@ def update_data(data_storage):
     data_storage["ec"].pop(0)
     print(data_storage)
 
-<<<<<<< HEAD
-=======
 # Function to read the data from the CSV file into a DataFrame
 def read_data():
     if os.path.exists(csv_file) and os.path.getsize(csv_file) > 0:
@@ -88,7 +89,6 @@ def analyze_data(df):
     return analysis
 
 
->>>>>>> 8de241a1c580469bbaa4108d832ea3217fcc987f
 app = Flask(__name__, template_folder='dashboard')
 
 @app.route("/")
@@ -123,6 +123,7 @@ def init():
     adjustment_thread = Thread(target=mon.adjustment)
     adjustment_thread.start()
     app.run(debug=False,host='0.0.0.0')
+    db.main()
     
 
 if __name__ == '__main__':
