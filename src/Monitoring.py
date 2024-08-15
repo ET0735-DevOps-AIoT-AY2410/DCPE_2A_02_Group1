@@ -1,5 +1,4 @@
 import time
-<<<<<<< HEAD
 from threading import Thread, Event
 from src.hal import hal_temp_humidity_sensor as temp_humid_sensor
 from src.hal import hal_adc as adc
@@ -7,7 +6,6 @@ from src.hal import hal_ir_sensor as ir_sensor
 from src.hal import hal_dc_motor as dc_motor
 from src.hal import hal_servo as servo
 from src.hal import hal_led as led
-=======
 import database as db
 from threading import Thread
 from hal import hal_temp_humidity_sensor as temp_humid_sensor
@@ -17,7 +15,6 @@ from hal import hal_dc_motor as dc_motor
 from hal import hal_servo as servo
 from hal import hal_led as led
 from hal import hal_buzzer as buzzer
->>>>>>> 8de241a1c580469bbaa4108d832ea3217fcc987f
 
 
 values = []
@@ -61,7 +58,6 @@ def pH_warn (pH_level):
         buzzer.beep (0.5,0.25,4)
 
 def adjustment():
-<<<<<<< HEAD
     while not stop_event.is_set():
         try:
             global values 
@@ -72,19 +68,7 @@ def adjustment():
             time.sleep(2)
         except:
             pass
-=======
-    while 1:
-        global values 
-        values = [temp_humid_sensor.read_temp_humidity()[0],adc.get_adc_value(1),adc.get_adc_value(0),ir_sensor.get_ir_sensor_state(),temp_humid_sensor.read_temp_humidity()[1]]
-        adjust_temp(values[0])
-        adjust_ec(values[1])
-        adjust_light(values[2])
-        pH_warn(values[3])
-        time.sleep(1)
-        db.log_data(values[0],values[1],values[2],values[3],values[4])
-        db.analyze_temperature_data (values[0])
-        db.analyze_ec_data (values[1])
->>>>>>> 8de241a1c580469bbaa4108d832ea3217fcc987f
+
 
 
 def main():
