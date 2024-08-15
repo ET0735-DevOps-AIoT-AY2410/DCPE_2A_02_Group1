@@ -86,10 +86,14 @@ To remove the container, use the following command:
 ```bash
 docker rm garden_monitor
 ```
+### Pytest
+
+-"update_value" function behaves as expected across different scenarios
+-"test_update_chart" ensures that the simulated chart data retains only the most recent data points
 
 ## Contributors
 
-- Dennis -> Backend: Monitoring.py, Displaying Graphs, and Login.py
+- Dennis -> Backend: Monitoring.py, Displaying Graphs, dashboard.html and Login.py
 - Reynard -> Frontend: index.html, about.html, dashboard.html, styles.css, graph_styles.css
-- Heng Jeang -> Hardware test cases
+- Heng Jeang -> Hardware test cases, Backend: dashboard.html
 - Yan Tiong -> database.py for analysis (tentative)
