@@ -6,16 +6,30 @@ from src.hal import hal_ir_sensor as ir_sensor
 from src.hal import hal_dc_motor as dc_motor
 from src.hal import hal_servo as servo
 from src.hal import hal_led as led
+import database as db
+from threading import Thread
+from hal import hal_temp_humidity_sensor as temp_humid_sensor
+from hal import hal_adc as adc
+from hal import hal_ir_sensor as ir_sensor
+from hal import hal_dc_motor as dc_motor
+from hal import hal_servo as servo
+from hal import hal_led as led
+from hal import hal_buzzer as buzzer
 
 
 values = []
-stop_event = Event()
 
 def adjust_temp(temperature):
-    if  temperature > 27:
+    if  temperature > 23:
+        dc_motor.set_motor_speed(70)
+        print("fan on!")
+        print(temperature)
+    elif temperature == -100:
         dc_motor.set_motor_speed(70)
     elif temperature <= 27:
         dc_motor.set_motor_speed(0)
+        print("fan off!")
+        print(temperature)
 
 def adjust_ec(ec_level):
     if ec_level <= 500:
@@ -29,6 +43,10 @@ def adjust_light(light_level):
     else:
         led.set_output(1,0)
 
+def pH_warn (pH_level):
+    if pH_level == False:
+        buzzer.beep (0.5,0.25,4)
+
 def adjustment():
     while not stop_event.is_set():
         try:
@@ -41,9 +59,7 @@ def adjustment():
         except:
             pass
 
-def stopadj():
-    stop_event.set()
-    print("stopped all")
+
 
 def main():
     temp_humid_sensor.init()
