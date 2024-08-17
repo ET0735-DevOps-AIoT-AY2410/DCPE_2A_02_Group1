@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # DCPE/FT/2A/02 GROUP 1 ET0735 DevOps For AIoT Mini-Project
 
 ## Project Overview
